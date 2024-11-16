@@ -1,0 +1,26 @@
+.dialog-pane {
+    -fx-background-color: rgb(160, 216, 187);
+    -fx-background-radius: 5px;
+    -fx-padding: 10px;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: rgb(204, 234, 244);
+    -fx-background-radius: 5px;
+    -fx-padding: 10px;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-text-fill: #5e91d3;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.text-area {
+    -fx-control-inner-background: rgb(221, 244, 232);
+    -fx-text-fill: black;
+    -fx-font-size: 15px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-padding: 3px;
+}

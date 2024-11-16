@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 5.3//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<!--
+https://github.com/hibernate/dtd/blob/main/hibernate-configuration-3.0.dtd
+-->
+<hibernate-configuration>
+    <session-factory>
+
+        <property name="connection.url">jdbc:mysql://localhost:3307/datos</property>
+        <!--property name="connection.username">root</property-->
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <!--property name="dialect">org.hibernate.dialect.MySQLDialect</property-->
+        <!--property name="connection.password">pwd</property-->
+
+        <property name="show_sql">true</property>
+
+         <mapping class="org.example.javafxhibernate.models.Pelicula"/>
+        <mapping class="org.example.javafxhibernate.models.Usuario"/>
+        <mapping class="org.example.javafxhibernate.models.Copia"/>
+
+
+
+     </session-factory>
+ </hibernate-configuration>

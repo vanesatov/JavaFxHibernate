@@ -1,0 +1,42 @@
+.root {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, rgb(196, 239, 217), rgb(160, 216, 187), rgb(139, 214, 232));
+}
+
+#btnLogin{
+    -fx-background-color: rgb(78, 203, 233);
+    -fx-text-fill: rgb(0, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 5, 0.5, 1.7, 1.7);
+}
+
+#btnLogin:hover {
+    -fx-background-color: rgb(169, 229, 250); ;
+}
+
+#btnSalir{
+    -fx-background-color: rgb(78, 203, 233);
+    -fx-text-fill: rgb(0, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 5, 0.5, 1.7, 1.7);
+}
+
+#btnSalir:hover {
+    -fx-background-color: rgb(169, 229, 250); ;
+}
+
+#lblLogin{
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgb(0, 0, 0), 1, 0.1, 1, 1);
+    -fx-text-fill: rgba(56, 128, 65, 0.97);
+}
+
+.label {
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+}
+
+.text-field{
+    -fx-background-color: rgb(224, 242, 244);
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgb(109, 192, 239), 5, 0.5, 0, 0);
+}
+

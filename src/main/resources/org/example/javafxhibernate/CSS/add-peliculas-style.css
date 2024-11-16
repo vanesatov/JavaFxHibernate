@@ -1,0 +1,13 @@
+#root4 {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, rgb(196, 239, 217), rgb(160, 216, 187), rgb(139, 214, 232));
+}
+
+.button {
+    -fx-background-color: rgb(78, 203, 233);
+    -fx-text-fill: rgb(0, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 5, 0.5, 1.7, 1.7);
+}
+
+.button:hover {
+    -fx-background-color: rgb(169, 229, 250);
+}
