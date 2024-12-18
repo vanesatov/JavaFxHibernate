@@ -56,6 +56,7 @@
                      <FlowPane.margin>
                         <Insets />
                      </FlowPane.margin></Button>
+                  <Button fx:id="btnInforme" mnemonicParsing="false" onAction="#informeDetallado" text="Informe" />
                   <Button fx:id="btnPeliculas" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#irPelis" text="Películas" visible="false">
                      <FlowPane.margin>
                         <Insets left="30.0" />

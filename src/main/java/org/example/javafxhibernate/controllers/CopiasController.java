@@ -4,13 +4,18 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import org.example.javafxhibernate.Application;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+import org.example.javafxhibernate.HellaApplication;
 import org.example.javafxhibernate.HibernateUtil;
 import org.example.javafxhibernate.Session;
 import org.example.javafxhibernate.dao.CopiaDAO;
 import org.example.javafxhibernate.models.Copia;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -40,6 +45,8 @@ public class CopiasController implements Initializable {
     private Button btnEditar;
 
     private CopiaDAO copiaDAO = new CopiaDAO(HibernateUtil.getSessionFactory());
+    @javafx.fxml.FXML
+    private Button btnInforme;
 
     /**
      * Inicializa la clase del controlador.
@@ -69,7 +76,7 @@ public class CopiasController implements Initializable {
         table.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
             if (newValue != null) return;
             Session.currentCopia = newValue;
-            Application.loadFXML("views/copia-view.fxml", "Copia");
+            HellaApplication.loadFXML("views/copia-view.fxml", "Copia");
         });
 
         btnEliminar.setOnAction(actionEvent -> eliminar());
@@ -92,7 +99,7 @@ public class CopiasController implements Initializable {
     @javafx.fxml.FXML
     public void addCopia(ActionEvent actionEvent) {
         Session.currentCopia = null;
-        Application.loadFXML("views/addCopia-view.fxml", "Nueva Copia");
+        HellaApplication.loadFXML("views/addCopia-view.fxml", "Nueva Copia");
     }
 
     /**
@@ -102,7 +109,7 @@ public class CopiasController implements Initializable {
     @javafx.fxml.FXML
     public void salir(ActionEvent actionEvent) {
         Session.currentUser = null;
-        Application.loadFXML("views/login-view.fxml", "Login");
+        HellaApplication.loadFXML("views/login-view.fxml", "Login");
     }
 
     /**
@@ -112,7 +119,7 @@ public class CopiasController implements Initializable {
     @javafx.fxml.FXML
     public void irPelis(ActionEvent actionEvent) {
         Session.currentCopia = null;
-        Application.loadFXML("views/peliculas-view.fxml", "Películas");
+        HellaApplication.loadFXML("views/peliculas-view.fxml", "Películas");
     }
 
     /**
@@ -156,13 +163,42 @@ public class CopiasController implements Initializable {
 
         if (seleccionada != null) {
             Session.currentCopia = seleccionada;
-            Application.loadFXML("views/updateCopia-view.fxml", "Editar Copia");
+            HellaApplication.loadFXML("views/updateCopia-view.fxml", "Editar Copia");
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Ninguna copia seleccionada");
             alert.setHeaderText("No se ha seleccionado ninguna copia para editar");
             alert.setContentText("Por favor, selecciona una copia en la tabla y vuelve a intentarlo.");
             alert.getDialogPane().getStylesheets().add(getClass().getResource("/org/example/javafxhibernate/CSS/alert.css").toExternalForm());
+            alert.showAndWait();
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void informeDetallado(ActionEvent actionEvent) {
+        Copia Seleccionada = table.getSelectionModel().getSelectedItem();
+        if (Seleccionada != null) {
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("copia", Long.valueOf(Seleccionada.getId()));
+            try {
+                Connection connection = HibernateUtil.getSessionFactory().openSession().doReturningWork(
+                        connectionProvider -> connectionProvider
+                );
+                JasperPrint jasperPrint = JasperFillManager.fillReport("informacionDetallada.jasper", params, connection);
+                JasperViewer.viewReport(jasperPrint, false);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("No se ha podido generar el informe de películas.");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
+            }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ninguna copia seleccionada");
+            alert.setHeaderText("No se ha seleccionado ninguna copia para generar el informe.");
+            alert.setContentText("Por favor, selecciona una copia en la tabla y vuelve a intentarlo.");
             alert.showAndWait();
         }
     }

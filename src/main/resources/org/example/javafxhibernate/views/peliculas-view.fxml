@@ -48,11 +48,14 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <FlowPane alignment="CENTER" hgap="50.0" prefHeight="55.0" prefWidth="609.0">
+            <FlowPane alignment="CENTER" hgap="30.0" prefHeight="55.0" prefWidth="609.0">
                <children>
                   <Button fx:id="btnAddPeli" mnemonicParsing="false" onAction="#addPelicula" text="Agregar Película" />
                   <Button fx:id="btnAtras" mnemonicParsing="false" onAction="#atras" text="Mis Copias" />
                   <Button fx:id="btnSalir" mnemonicParsing="false" onAction="#salir" text="Salir" />
+                  <Button fx:id="btnInformePeliculas" mnemonicParsing="false" onAction="#informeListadoPeliculas" text="Mostrar Informe Listado Películas" />
+                  <Button fx:id="btnPeliculasDañadas" mnemonicParsing="false" onAction="#mostrarInformePeliculasDañadas" text="Mostrar Informe Películas Dañadas" />
+                  <Button fx:id="btnPeliculasMasUnaCopia" mnemonicParsing="false" onAction="#informePeliculasVariasCopias" text="Mostrar Informe Películas varias Copias" />
                </children>
             </FlowPane>
          </children>

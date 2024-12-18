@@ -5,7 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import org.example.javafxhibernate.Application;
+import org.example.javafxhibernate.HellaApplication;
 import org.example.javafxhibernate.HibernateUtil;
 import org.example.javafxhibernate.Session;
 import org.example.javafxhibernate.dao.CopiaDAO;
@@ -67,7 +67,7 @@ public class AddCopiaController implements Initializable {
 
     @javafx.fxml.FXML
     public void cancelar(ActionEvent actionEvent) {
-        Application.loadFXML("views/copias-view.fxml", "Copias usuario " + Session.currentUser.getNombre_usuario());
+        HellaApplication.loadFXML("views/copias-view.fxml", "Copias usuario " + Session.currentUser.getNombre_usuario());
     }
 
     /**
@@ -87,7 +87,7 @@ public class AddCopiaController implements Initializable {
 
         copiaDAO.save(nuevaCopia);
 
-        Application.loadFXML("views/copias-view.fxml", "Copias usuario " + Session.currentUser.getNombre_usuario());
+        HellaApplication.loadFXML("views/copias-view.fxml", "Copias usuario " + Session.currentUser.getNombre_usuario());
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Copia guardada");

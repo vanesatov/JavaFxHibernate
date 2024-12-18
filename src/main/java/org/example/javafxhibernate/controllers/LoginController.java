@@ -6,7 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import org.example.javafxhibernate.Application;
+import org.example.javafxhibernate.HellaApplication;
 import org.example.javafxhibernate.HibernateUtil;
 import org.example.javafxhibernate.Session;
 import org.example.javafxhibernate.dao.UsuarioDAO;
@@ -58,7 +58,7 @@ public class LoginController implements Initializable {
         } else {
             Session.currentUser = user;
 
-            Application.loadFXML("views/copias-view.fxml", "Copias usuario " + user.getNombre_usuario());
+            HellaApplication.loadFXML("views/copias-view.fxml", "Copias usuario " + user.getNombre_usuario());
         }
     }
 }

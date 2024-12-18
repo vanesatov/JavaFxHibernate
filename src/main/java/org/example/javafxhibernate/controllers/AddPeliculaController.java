@@ -3,11 +3,10 @@ package org.example.javafxhibernate.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import org.example.javafxhibernate.Application;
+import org.example.javafxhibernate.HellaApplication;
 import org.example.javafxhibernate.HibernateUtil;
 import org.example.javafxhibernate.dao.PeliculaDAO;
 import org.example.javafxhibernate.models.Pelicula;
-import org.example.javafxhibernate.controllers.AddCopiaController;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -99,7 +98,7 @@ public class AddPeliculaController implements Initializable {
         alert.getDialogPane().getStylesheets().add(getClass().getResource("/org/example/javafxhibernate/CSS/alert.css").toExternalForm());
         alert.showAndWait();
 
-        Application.loadFXML("views/peliculas-view.fxml", "Películas");
+        HellaApplication.loadFXML("views/peliculas-view.fxml", "Películas");
     }
 
     /**
@@ -109,6 +108,6 @@ public class AddPeliculaController implements Initializable {
 
     @javafx.fxml.FXML
     public void cancelar(ActionEvent actionEvent) {
-        Application.loadFXML("views/peliculas-view.fxml", "Películas");
+        HellaApplication.loadFXML("views/peliculas-view.fxml", "Películas");
     }
 }

@@ -6,6 +6,10 @@ module org.example.javafxhibernate {
     requires jakarta.persistence;
     requires java.naming;
 
+    requires java.sql;
+    requires net.sf.jasperreports.core;
+
+
     opens org.example.javafxhibernate.models;
 
 

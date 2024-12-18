@@ -4,13 +4,21 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import org.example.javafxhibernate.Application;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+import org.example.javafxhibernate.HellaApplication;
 import org.example.javafxhibernate.HibernateUtil;
 import org.example.javafxhibernate.Session;
 import org.example.javafxhibernate.dao.PeliculaDAO;
 import org.example.javafxhibernate.models.Pelicula;
+import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
+
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -34,6 +42,12 @@ public class PeliculasController implements Initializable {
     private TableView<Pelicula> table;
     @javafx.fxml.FXML
     private Button btnSalir;
+    @javafx.fxml.FXML
+    private Button btnInformePeliculas;
+    @javafx.fxml.FXML
+    private Button btnPeliculasDañadas;
+    @javafx.fxml.FXML
+    private Button btnPeliculasMasUnaCopia;
 
     /**
      * Inicializa el controlador.
@@ -75,7 +89,7 @@ public class PeliculasController implements Initializable {
      */
     @javafx.fxml.FXML
     public void addPelicula(ActionEvent actionEvent) {
-        Application.loadFXML("views/addPelicula-view.fxml", "Añadir Película");
+        HellaApplication.loadFXML("views/addPelicula-view.fxml", "Añadir Película");
     }
 
     /**
@@ -84,7 +98,7 @@ public class PeliculasController implements Initializable {
      */
     @javafx.fxml.FXML
     public void atras(ActionEvent actionEvent) {
-        Application.loadFXML("views/copias-view.fxml", "Copias usuario " + Session.currentUser.getNombre_usuario());
+        HellaApplication.loadFXML("views/copias-view.fxml", "Copias usuario " + Session.currentUser.getNombre_usuario());
     }
 
     /**
@@ -101,7 +115,7 @@ public class PeliculasController implements Initializable {
      */
     @javafx.fxml.FXML
     public void salir(ActionEvent actionEvent) {
-        Application.loadFXML("views/login-view.fxml", "Login");
+        HellaApplication.loadFXML("views/login-view.fxml", "Login");
     }
 
     /**
@@ -127,5 +141,60 @@ public class PeliculasController implements Initializable {
         alert.getDialogPane().setContent(textArea);
         alert.getDialogPane().getStylesheets().add(getClass().getResource("/org/example/javafxhibernate/CSS/alert.css").toExternalForm());
         alert.showAndWait();
+    }
+
+
+    @javafx.fxml.FXML
+    public void informeListadoPeliculas(ActionEvent actionEvent) {
+        try {
+            Connection connection = HibernateUtil.getSessionFactory().openSession().doReturningWork(
+                    connectionProvider -> connectionProvider
+            );
+            JasperPrint jasperPrint = JasperFillManager.fillReport("ListadoPeliculas.jasper", null, connection);
+            JasperViewer.viewReport(jasperPrint, false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("No se ha podido generar el informe de películas.");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void mostrarInformePeliculasDañadas(ActionEvent actionEvent) {
+        try {
+            Connection connection = HibernateUtil.getSessionFactory().openSession().doReturningWork(
+                    connectionProvider -> connectionProvider
+            );
+            JasperPrint jasperPrint = JasperFillManager.fillReport("PeliculasMalEstado.jasper", null, connection);
+            JasperViewer.viewReport(jasperPrint, false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("No se ha podido generar el informe de películas.");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+    }
+
+    @javafx.fxml.FXML
+    public void informePeliculasVariasCopias(ActionEvent actionEvent) {
+        try {
+            Connection connection = HibernateUtil.getSessionFactory().openSession().doReturningWork(
+                    connectionProvider -> connectionProvider
+            );
+            JasperPrint jasperPrint = JasperFillManager.fillReport("PeliculasMasUnaCopia.jasper", null, connection);
+            JasperViewer.viewReport(jasperPrint, false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("No se ha podido generar el informe de películas.");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
     }
 }
